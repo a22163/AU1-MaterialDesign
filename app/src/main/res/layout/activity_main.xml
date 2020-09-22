@@ -25,7 +25,7 @@
         android:text="@string/txtEmail"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:gravity="right"
+        android:gravity="left"
         />
 
     <EditText
