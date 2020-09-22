@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">1_5_0_1_LinearLayout-Login</string>
+
+    <!-- 1 - Pantalla Login-->
+        <string name="txtEmail">Email:</string>
+        <string name="txtPassword">Password:</string>
+        <string name="btnLogin">Login</string>
+    <!-- Fin Pantalla Login -->
+</resources>
