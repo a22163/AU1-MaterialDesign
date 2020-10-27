@@ -1,4 +1,4 @@
-package com.svalero.a1_6_0_1_estilosytemas;
+package com.svalero.a1_6_0_1_estilosytemas.user.login.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,11 +8,22 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.svalero.a1_6_0_1_estilosytemas.beans.Film;
+import com.svalero.a1_6_0_1_estilosytemas.R;
+import com.svalero.a1_6_0_1_estilosytemas.user.login.presenter.LoginPresenter;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private EditText edtEmail;
     private EditText edtPassword; //getElementById()
+
+    private LoginPresenter loginPresenter;
 
     private static final int SCREEN=2;
     @Override
@@ -23,22 +34,22 @@ public class LoginActivity extends AppCompatActivity {
         //3ª: Inicializar elemento que necesite de XML
         initComponents();
 
+        // 4º: Inicializar MVP (Presenter)
+        initPresenter();
+
         // capturar el onclick
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Write whatever to want to do after delay specified (1 sec)
-                        Intent pantalla = new Intent(getBaseContext(),
-                                ListarPeliculasActivity.class);
-                        startActivity(pantalla);
-                        // Threads--> Clase
-                        // Runnable-->Interfaz
-                    }
-                }, 4000);
+                //loginPresenter.login();
+                try {
+                    ArrayList<Film> lstFilms = Film.getArrayListFromJSON();
+                    Toast.makeText(getBaseContext(),
+                            lstFilms.get(0).getTitulo(), Toast.LENGTH_LONG).
+                            show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 /*Intent pantalla = new Intent(getBaseContext(),
                         ListarPeliculasActivity.class);
                 startActivity(pantalla);*/
@@ -50,5 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
+    }
+    private void initPresenter(){
+        loginPresenter = new LoginPresenter();
     }
 }
