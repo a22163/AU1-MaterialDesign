@@ -12,13 +12,16 @@ import android.widget.Toast;
 
 import com.svalero.a1_6_0_1_estilosytemas.beans.Film;
 import com.svalero.a1_6_0_1_estilosytemas.R;
+import com.svalero.a1_6_0_1_estilosytemas.beans.User;
+import com.svalero.a1_6_0_1_estilosytemas.user.login.LoginContract;
 import com.svalero.a1_6_0_1_estilosytemas.user.login.presenter.LoginPresenter;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity
+            implements LoginContract.View {
     private Button btnLogin;
     private EditText edtEmail;
     private EditText edtPassword; //getElementById()
@@ -41,19 +44,10 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //loginPresenter.login();
-                try {
-                    ArrayList<Film> lstFilms = Film.getArrayListFromJSON();
-                    Toast.makeText(getBaseContext(),
-                            lstFilms.get(0).getTitulo(), Toast.LENGTH_LONG).
-                            show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                /*Intent pantalla = new Intent(getBaseContext(),
-                        ListarPeliculasActivity.class);
-                startActivity(pantalla);*/
-
+                User user = new User();
+                user.setEmail(edtEmail.getText().toString());
+                user.setPassword(edtPassword.getText().toString());
+                loginPresenter.login(user);
             }
         });
     }
@@ -63,6 +57,26 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
     }
     private void initPresenter(){
-        loginPresenter = new LoginPresenter();
+        loginPresenter = new LoginPresenter(this);
+    }
+
+    @Override
+    public void successLogin(User user, String msg) {
+        Toast.makeText(
+                getBaseContext(),
+                msg,
+                Toast.LENGTH_LONG).
+                show();
+        /*Intent pantalla = new Intent(getBaseContext(),
+                        ListarPeliculasActivity.class);
+                startActivity(pantalla);*/
+    }
+    @Override
+    public void failureLogin(String err){
+        Toast.makeText(
+                getBaseContext(),
+                err,
+                Toast.LENGTH_LONG).
+                show();
     }
 }
