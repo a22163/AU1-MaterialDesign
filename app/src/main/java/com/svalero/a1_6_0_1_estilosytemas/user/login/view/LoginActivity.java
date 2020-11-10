@@ -22,10 +22,17 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity
             implements LoginContract.View {
+
+    /*
+    * LoginActivity = 8 Bytes;
+    * AppCompatActivity = 20 Bytes;
+    * LoginContract.View = 2 Bytes;
+    * */
     private Button btnLogin;
     private EditText edtEmail;
     private EditText edtPassword; //getElementById()
 
+    /*ANCLA CON LA SIGUIENTE CAPA*/
     private LoginPresenter loginPresenter;
 
     private static final int SCREEN=2;
@@ -57,7 +64,9 @@ public class LoginActivity extends AppCompatActivity
         btnLogin = findViewById(R.id.btnLogin);
     }
     private void initPresenter(){
-        loginPresenter = new LoginPresenter(this);
+        loginPresenter = new
+                LoginPresenter((LoginContract.View)
+                            this);
     }
 
     @Override

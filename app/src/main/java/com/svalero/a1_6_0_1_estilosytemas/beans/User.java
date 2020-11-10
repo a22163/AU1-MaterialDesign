@@ -1,6 +1,10 @@
 package com.svalero.a1_6_0_1_estilosytemas.beans;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class User {
 static{
@@ -109,9 +113,9 @@ static{
     /**** XML ***/
     /*******/
     private static final String ID_USUARIO="idUsuario";
-    private static final String ID="ID";
-    private static final String EMAIL="EMAIL";
-    private static final String PASSWORD="PASSWORD";
+    private static final String ID="id";
+    private static final String EMAIL="email";
+    private static final String PASSWORD="password";
 
     private long id; // 155
     private String email; //
@@ -144,20 +148,26 @@ static{
         this.password = password;
     }
 
-    private void toArrayFromJSON(JSONArray lstUsers){
+    public static ArrayList<User> toArrayFromJSON(JSONArray lstUsers) throws JSONException {
         String cad="";
-        User user = new User();
-            /*
-              user.setId(lstUsers.get(0).getInt(ID));
-              user.setEmail(lstUsers.get(0).getInt(EMAIL));
-              user.setPassword(lstUsers.get(0).getInt(PASSWORD));
-            */
+        ArrayList<User> lstUser = new ArrayList();
+
+        for (int i = 0 ; i < lstUsers.length() ; i++){
+            JSONObject userJSON = lstUsers.getJSONObject(i);
+                User user = new User();
+                user.setId(userJSON.getInt(ID));
+                user.setEmail(userJSON.getString(EMAIL));
+                user.setPassword(userJSON.getString(PASSWORD));
+            lstUser.add(user);
+        }
+        return lstUser;
         // [
         // {
         //  "ID":1; "EMAIL":"a@svalero.com"; "PASSWORDS":"1234"
         // },
         // {},
         // ]
+
     }
     private void toObjectFromJSON(){
         // {

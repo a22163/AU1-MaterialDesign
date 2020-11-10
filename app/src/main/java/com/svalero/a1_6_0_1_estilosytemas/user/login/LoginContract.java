@@ -8,9 +8,16 @@ public interface LoginContract {
         void failureLogin(String err);
     }
     public interface Presenter{
-        void loginAPI(User user);
+        void login(String email, String password);
     }
     public interface Model{
+        /*DATOS Y PUNTO DE RETORNO (CALLBACK) --> SUCCESS*/
+        void loginWS(User user, OnLoginListener onLoginListener);
 
+        /*PROMESA (CALLBACK)*/
+        interface OnLoginListener{
+                void resolve(User usuario);
+                void reject(String err);
+        }
     }
 }
