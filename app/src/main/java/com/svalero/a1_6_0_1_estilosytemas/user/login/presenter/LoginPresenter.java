@@ -21,15 +21,17 @@ public class LoginPresenter {
         this.view = view;
         loginModel = new LoginModel();
     }
-    public void login(User user){
+    public void login(String email, String pass){
         // 1º) Validar usuario y password. [Validaciones.checkEmail()]
-
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(pass);
         //2º) API
         loginModel.loginWS(user,
                 new LoginContract.Model.OnLoginListener() {
                     @Override
                     public void resolve(User user) {
-                            view.successLogin(user, "Correcto");
+                        view.successLogin(user, "Correcto");
                     }
 
                     @Override

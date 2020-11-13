@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.svalero.a1_6_0_1_estilosytemas.R;
 import com.svalero.a1_6_0_1_estilosytemas.beans.User;
 import com.svalero.a1_6_0_1_estilosytemas.user.login.LoginContract;
 import com.svalero.a1_6_0_1_estilosytemas.utils.Post;
@@ -22,7 +24,8 @@ public class LoginModel implements LoginContract.Model {
             // &PASS=1234
     private OnLoginListener onLoginListener;
     private static final String
-            URL_API = "localhost:42644/2_Netflix_JavascriptParametros/Controller";
+            URL_API =
+            "http://172.20.7.36:42644/2_Netflix_JavascriptParametros/Controller";
     @Override
     public void loginWS(User user,
                         final OnLoginListener onLoginListener) {
@@ -42,6 +45,8 @@ public class LoginModel implements LoginContract.Model {
         LoginAsyncTask loginAsyncTask =
                 new LoginAsyncTask(URL_API, data);
         loginAsyncTask.execute();
+
+
     }
     class LoginAsyncTask extends AsyncTask<String, Integer, Boolean>{
         /*1º) DÓNDE TENGO QUE IR*/
@@ -64,12 +69,13 @@ public class LoginModel implements LoginContract.Model {
         @Override
         protected void onPostExecute(Boolean resp) {
             super.onPostExecute(resp);
-
             /*Podemos hablar con la vista*/
             if(resp){
-                onLoginListener.resolve(user);
+                onLoginListener.
+                        resolve(user);
             }else{
-                onLoginListener.reject("Error");
+                onLoginListener.
+                        reject("Error");
             }
 
         }

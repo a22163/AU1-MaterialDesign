@@ -43,11 +43,9 @@ public class Post {
     private OutputStreamWriter writer = null;
         private void conectaPost(Map<String,String> dataToSend, String pagina) {
             try {
-
                 // Preparo la cadena con las claves y valores que quiero que le llegue al Servidor
                 // ?USUARIO=PEPE&CONTRASENA=1234&.........
                 String encodedStr = getEncodedData(dataToSend);
-
                 // URL--> donde se encuentra el recurso Web
                 URL url = new URL(pagina);
 
