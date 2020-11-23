@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.svalero.a1_6_0_1_estilosytemas.user.login.view.LoginActivity;
+import com.svalero.a1_6_0_1_estilosytemas.user.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SCREEN=1;

@@ -155,9 +155,9 @@ static{
         for (int i = 0 ; i < lstUsers.length() ; i++){
             JSONObject userJSON = lstUsers.getJSONObject(i);
                 User user = new User();
-                user.setId(userJSON.getInt(ID));
-                user.setEmail(userJSON.getString(EMAIL));
-                user.setPassword(userJSON.getString(PASSWORD));
+                    user.setId(userJSON.getInt(ID));
+                    user.setEmail(userJSON.getString(EMAIL));
+                    user.setPassword(userJSON.getString(PASSWORD));
             lstUser.add(user);
         }
         return lstUser;

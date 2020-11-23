@@ -3,6 +3,7 @@ package com.svalero.a1_6_0_1_estilosytemas.utils;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -93,14 +94,7 @@ public class Post {
             } catch (Exception e) {
                 Log.e("log_tag", "Error in http connection " + e.toString());
             } finally {
-                try {
-                    if(con!=null)
-                    {
-                        con.disconnect();
-                    }
-                } catch (Exception e) {
-                    Log.e("log_tag", "Error in http connection " + e.toString());
-                }
+
             }
 
         }
@@ -137,6 +131,39 @@ public class Post {
             }
         }
 
+    private JSONObject getRespuestaObject() {
+        JSONObject jsonObject = null;
+        try {
+            if(is!=null){
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                respuesta = sb.toString();
+                //jArray = new JSONArray(respuesta);
+                jsonObject = new JSONObject(respuesta);
+            }
+            Log.e("log_tag", "Cadena JSon " + respuesta);
+        } catch (Exception e) {
+            Log.e("log_tag", "Error converting result " + e.toString());
+        }finally {
+            try {
+                if(writer!=null) {
+                    writer.close();
+                }
+                if(con!=null)
+                {
+                    con.disconnect();
+                }
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection " + e.toString());
+            }
+            return jsonObject;
+        }
+    }
     public JSONArray getServerDataPost(Map<String,String> dataToSend, String URL) {
         conectaPost(dataToSend, URL);
         return     getRespuestaPostEnJson();
@@ -145,7 +172,10 @@ public class Post {
     public JSONArray getServerDataGet(String URL) {
         conectaGet(URL);
         return     getRespuestaPostEnJson();
-
+    }
+    public JSONObject getServerDataGetObject(String URL) {
+        conectaGet(URL);
+        return      getRespuestaObject();
     }
 }
 

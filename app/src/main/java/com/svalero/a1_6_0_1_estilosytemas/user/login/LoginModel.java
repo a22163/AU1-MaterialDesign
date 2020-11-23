@@ -1,4 +1,4 @@
-package com.svalero.a1_6_0_1_estilosytemas.user.login.model;
+package com.svalero.a1_6_0_1_estilosytemas.user.login;
 
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -48,6 +48,8 @@ public class LoginModel implements LoginContract.Model {
 
 
     }
+
+    /*Semáforo = AJAX*/
     class LoginAsyncTask extends AsyncTask<String, Integer, Boolean>{
         /*1º) DÓNDE TENGO QUE IR*/
         private String url="";
@@ -66,6 +68,7 @@ public class LoginModel implements LoginContract.Model {
             this.url = url;
         }
         /*SEMÁFORO = VERDE*/
+        /*SUCCESS*/
         @Override
         protected void onPostExecute(Boolean resp) {
             super.onPostExecute(resp);
