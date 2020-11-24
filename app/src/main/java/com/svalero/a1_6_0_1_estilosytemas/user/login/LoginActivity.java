@@ -61,20 +61,20 @@ public class LoginActivity extends AppCompatActivity
         setContentView(R.layout.activity_login_activity);
 // ...
 // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         //3ª: Inicializar elemento que necesite de XML
         initComponents();
 
         // 4º: Inicializar MVP (Presenter)
         initPresenter();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        */
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +94,28 @@ public class LoginActivity extends AppCompatActivity
             }
         });*/
     }
+
+    @Override
+    public void successLogin(User user, String msg) {
+        Toast.makeText(
+                getBaseContext(),
+                msg,
+                Toast.LENGTH_LONG).
+                show();
+        Intent pantalla = new Intent(getBaseContext(),
+                ListarPeliculasActivity.class);
+        startActivity(pantalla);
+    }
+    @Override
+    public void failureLogin(String err){
+        Toast.makeText(
+                getBaseContext(),
+                err,
+                Toast.LENGTH_LONG).
+                show();
+    }
+
+
     private void signIn(){
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -145,27 +167,6 @@ public class LoginActivity extends AppCompatActivity
         btnLogin = findViewById(R.id.btnLogin);
     }
     private void initPresenter(){
-        loginPresenter = new
-                LoginPresenter((LoginContract.View)this);
-    }
-
-    @Override
-    public void successLogin(User user, String msg) {
-        Toast.makeText(
-                getBaseContext(),
-                msg,
-                Toast.LENGTH_LONG).
-                show();
-        Intent pantalla = new Intent(getBaseContext(),
-                        ListarPeliculasActivity.class);
-                startActivity(pantalla);
-    }
-    @Override
-    public void failureLogin(String err){
-        Toast.makeText(
-                getBaseContext(),
-                err,
-                Toast.LENGTH_LONG).
-                show();
+        loginPresenter = new LoginPresenter((LoginContract.View)this);
     }
 }

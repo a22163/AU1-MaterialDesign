@@ -25,12 +25,12 @@ public class LoginPresenter {
                 new LoginContract.Model.OnLoginListener() {
                     @Override
                     public void resolve(User user) {
-                        view.successLogin(user, "Correcto");
+                        view.successLogin(user, "Usuario Correcto");
                     }
 
                     @Override
                     public void reject(String err) {
-                            view.failureLogin("Error");
+                        view.failureLogin("Error");
                     }
                 });
     }

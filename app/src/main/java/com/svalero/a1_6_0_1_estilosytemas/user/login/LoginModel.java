@@ -26,6 +26,8 @@ public class LoginModel implements LoginContract.Model {
     private static final String
             URL_API =
             "http://172.20.7.36:42644/2_Netflix_JavascriptParametros/Controller";
+    //private static final String URL_API_PRUEBA_01 ="";
+
     @Override
     public void loginWS(User user,
                         final OnLoginListener onLoginListener) {
@@ -83,11 +85,6 @@ public class LoginModel implements LoginContract.Model {
 
         }
         /*SEMÁFORO = AMARILLO*/
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-        }
-
         /*SEMÁFORO = ROJO*/
         @Override
         protected Boolean doInBackground(String... params) {
@@ -95,8 +92,7 @@ public class LoginModel implements LoginContract.Model {
                 Post post = new Post();
                 // $.ajax();
                 // Post
-                JSONArray result = post.
-                        getServerDataPost(data,url);
+                JSONArray result = post.getServerDataPost(data,url);
                 //lstFilms = Film.getArrayListFromJSon(result);
                 user = User.toArrayFromJSON(result).get(0);
             } catch (Exception e) {
