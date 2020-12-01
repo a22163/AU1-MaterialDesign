@@ -38,8 +38,22 @@ public class PintarListaMovies
     public void onBindViewHolder(@NonNull FilmViewHolder holder,
                                  int position) {
         Film film = lstFilms.get(position);
-        holder.txtTitleFilm.setText(film.getTitulo());
-        holder.txtOverviewFilm.setText(film.getSinopsis());
+            holder.txtTitleFilm.setText(film.getTitulo());
+            holder.txtOverviewFilm.setText(film.getSinopsis());
+
+        /*****************TRAER IMAGEN**********************/
+       /* String urlImage = "http://192.168.43.143:42644/RakutenTVAndroid/images/" +
+                lstFilms.get(posFila).getUrl()+".png";
+        String urlDePrueba =
+                "http://192.168.43.143:42644/RakutenTVAndroid/images/mision_imposible.png";
+        */
+
+        /*Picasso o Glide*/
+            /*Picasso.get().load(urlDePrueba).
+                    into(holder.imgFilm);
+            */
+
+        /***************************************************/
     }
 
     @Override
